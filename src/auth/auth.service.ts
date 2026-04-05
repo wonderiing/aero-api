@@ -20,7 +20,7 @@ export class AuthService {
   ) { }
 
 
-  async register(registerDto: RegisterDto) {
+  async register(registerDto: RegisterDto): Promise<void>{
 
     const exists = await this.userRepo.findOneBy({ email: registerDto.email });
 

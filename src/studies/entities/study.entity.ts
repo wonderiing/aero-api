@@ -1,3 +1,4 @@
+import { Exclude, Expose } from "class-transformer";
 import { User } from "src/auth/entities/user.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -16,11 +17,7 @@ export class Study {
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP", name: "created_at" })
     createdAt: Date;
 
-    @ManyToOne(
-        () => User, 
-        (user) => user.studies,
-        { onDelete: 'CASCADE'}
-    )
+    @ManyToOne( () => User, (user) => user.studies,{ onDelete: 'CASCADE'})
     user: User;
 
 }

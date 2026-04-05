@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Study } from "src/studies/entities/study.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'users'})
 export class User { 
@@ -32,4 +33,7 @@ export class User {
 
     @Column({nullable: true, type: 'text'})
     hashedRefreshToken: string | null;
+
+    @OneToMany(() => Study, (study) => study.user)
+    studies: Study[];
 }

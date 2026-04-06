@@ -17,20 +17,20 @@ export class ResourcesController {
 
   @Get('studies/:studyId/resources')
   @UseGuards(JwtAuthGuard)
-  findAll(@Param('studyId') studyId: string) {
-    return this.resourcesService.findAllResourcesByStudy(studyId);
+  findAll(@Param('studyId') studyId: string, @GetUser('id') userId: string) {
+    return this.resourcesService.findAllResourcesByStudy(studyId, userId);
   }
 
   @Patch('resources/:id')
   @UseGuards(JwtAuthGuard)
-  update(@Param('id') id: string, @Body() updateResourceDto: UpdateResourceDto) {
-    return this.resourcesService.update(id, updateResourceDto);
+  update(@Param('id') id: string, @Body() updateResourceDto: UpdateResourceDto, @GetUser('id') userId: string) {
+    return this.resourcesService.update(id, updateResourceDto, userId);
   }
 
   @Get('resources/:id')
   @UseGuards(JwtAuthGuard)
-  findOne(@Param('id') id: string) {
-    return this.resourcesService.findOne(id);
+  findOne(@Param('id') id: string, @GetUser('id') userId: string) {
+    return this.resourcesService.findOne(id, userId);
   }
 
  

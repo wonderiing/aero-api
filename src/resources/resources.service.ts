@@ -28,22 +28,22 @@ export class ResourcesService {
     
   }
 
-  async findAllResourcesByStudy(studyId: string): Promise<Resource[]> {
+  async findAllResourcesByStudy(studyId: string, userId: string): Promise<Resource[]> {
     
-    const resources = await this.resourceRepo.find({where: {study: { id: studyId}}})
+    const resources = await this.resourceRepo.find({where: {study: { id: studyId, user: {id: userId}}}})
 
     if (!resources || resources.length === 0) throw new BadRequestException(`No resources found for that study`)
 
     return resources;
   }
 
-  async findOne(id: string): Promise<Resource> {
-    const resource = await this.resourceRepo.findOne({ where: { id } });
+  async findOne(id: string, userId: string): Promise<Resource> {
+    const resource = await this.resourceRepo.findOne({ where: { id, study: { user: { id: userId}}} });
     if (!resource) throw new BadRequestException(`Resource with id ${id} not found`);
     return resource;
   }
 
-  async update(id: string, updateResourceDto: UpdateResourceDto): Promise<Resource> {
+  async update(id: string, updateResourceDto: UpdateResourceDto, userId: string): Promise<Resource> {
     const resource = await this.resourceRepo.preload({
       id,
       ...updateResourceDto,
@@ -51,6 +51,8 @@ export class ResourcesService {
 
     if (!resource) throw new BadRequestException(`Resource with id ${id} not found`);
 
+    if (resource.study.user.id !== userId) throw new BadRequestException(`You don't have permission to update this record`)
+  
     return this.resourceRepo.save(resource);
   }
 

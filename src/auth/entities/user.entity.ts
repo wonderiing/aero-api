@@ -16,7 +16,9 @@ export class User {
     @Column({type: 'text', name: 'password_hash'})
     passwordHash: string;
 
-    @Column({type: 'boolean', default: false, name: 'is_active'})
+    
+    // cambiare esto a false, cuando implemente la verificacion por OTP.
+    @Column({type: 'boolean', default: true, name: 'is_active'})
     isActive: boolean;
 
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP", name: "created_at" })

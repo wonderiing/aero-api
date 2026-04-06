@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { Throttle, ThrottlerModule } from '@nestjs/throttler';
 import { StudiesModule } from './studies/studies.module';
+import { ResourcesModule } from './resources/resources.module';
 
 @Module({
   imports: [AuthModule,
@@ -46,7 +47,9 @@ import { StudiesModule } from './studies/studies.module';
       ]
     }),
 
-    StudiesModule
+    StudiesModule,
+
+    ResourcesModule
 
   ],
   controllers: [AppController],

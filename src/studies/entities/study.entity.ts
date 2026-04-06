@@ -1,5 +1,6 @@
 import { Exclude, Expose } from "class-transformer";
 import { User } from "src/auth/entities/user.entity";
+import { Flashcard } from "src/flashcard/entities/flashcard.entity";
 import { Resource } from "src/resources/entities/resource.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -23,4 +24,7 @@ export class Study {
 
     @OneToMany(() => Resource, (resource) => resource.study)
     resources: Resource[];
+
+    @OneToMany(() => Flashcard, (flashcard) => flashcard.study)
+    flashcards: Flashcard[];
 }

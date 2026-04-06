@@ -1,5 +1,6 @@
+import { Flashcard } from "src/flashcard/entities/flashcard.entity";
 import { Study } from "src/studies/entities/study.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'resources'})
 export class Resource {
@@ -21,4 +22,7 @@ export class Resource {
 
     @ManyToOne(() => Study, (study) => study.resources, { onDelete: 'CASCADE'})
     study: Study
+
+    @OneToMany(() => Flashcard, (flashcard) => flashcard.resource)
+    flashcards: Flashcard[];
 }

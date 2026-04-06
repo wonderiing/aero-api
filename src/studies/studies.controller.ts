@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, SerializeOptions, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, SerializeOptions, Query, ParseUUIDPipe } from '@nestjs/common';
 import { StudiesService } from './studies.service';
 import { CreateStudyDto } from './dto/create-study.dto';
 import { UpdateStudyDto } from './dto/update-study.dto';
@@ -20,19 +20,19 @@ export class StudiesController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  getAll(@GetUser('id') userId: string, @Query() paginationDto: PaginationDto) {
+  getAll(@GetUser('id', ParseUUIDPipe) userId: string, @Query() paginationDto: PaginationDto) {
     return this.studiesService.findAll(paginationDto, userId);
   }
 
   @Get(':studyId')
   @UseGuards(JwtAuthGuard)
-  getOne(@Param('studyId') studyId: string, @GetUser('id') userId: string) {
+  getOne(@Param('studyId', ParseUUIDPipe) studyId: string, @GetUser('id', ParseUUIDPipe) userId: string) {
     return this.studiesService.findOne(studyId, userId)
   }
 
   @Delete(':studyId')
   @UseGuards(JwtAuthGuard)
-  delete(@Param('studyId') studyId: string, @GetUser('id') userId: string) {
+  delete(@Param('studyId', ParseUUIDPipe) studyId: string, @GetUser('id', ParseUUIDPipe) userId: string) {
     return this.studiesService.remove(studyId, userId);
   }
 

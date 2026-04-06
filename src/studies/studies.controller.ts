@@ -10,7 +10,7 @@ import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
 @Controller('studies')
 export class StudiesController {
-  constructor(private readonly studiesService: StudiesService) {}
+  constructor(private readonly studiesService: StudiesService) { }
 
   @Post()
   @UseGuards(JwtAuthGuard)
@@ -26,13 +26,13 @@ export class StudiesController {
 
   @Get(':studyId')
   @UseGuards(JwtAuthGuard)
-  getOne(@Param('studyId', ParseUUIDPipe) studyId: string, @GetUser('id', ParseUUIDPipe) userId: string) {
+  getOne(@Param('studyId', ParseUUIDPipe) studyId: string, @GetUser('id') userId: string) {
     return this.studiesService.findOne(studyId, userId)
   }
 
   @Delete(':studyId')
   @UseGuards(JwtAuthGuard)
-  delete(@Param('studyId', ParseUUIDPipe) studyId: string, @GetUser('id', ParseUUIDPipe) userId: string) {
+  delete(@Param('studyId', ParseUUIDPipe) studyId: string, @GetUser('id') userId: string) {
     return this.studiesService.remove(studyId, userId);
   }
 

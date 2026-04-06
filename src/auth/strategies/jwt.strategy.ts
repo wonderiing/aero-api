@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
@@ -24,6 +24,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
         const user = await this.repo.findOneBy({id: payload.id});
 
         if (!user) throw new NotFoundException('Invalid Token')
+
+        if (!user.isActive) throw new UnauthorizedException('User is inactive')
 
         return user;
     }

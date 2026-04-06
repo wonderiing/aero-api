@@ -1,5 +1,4 @@
-import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
-import e from "express";
+import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID, ValidateNested } from "class-validator";
 
 export class CreateFlashcardDto {
 
@@ -15,13 +14,15 @@ export class CreateFlashcardDto {
     @IsEnum(['open', 'multiple-choice'])
     type?: string;
 
-    @IsArray()
-    @ValidateNested({each: true})
+    @ValidateNested()
     @IsOptional()
-    options?: {correct: string, distractors: string[]}[];
+    options?: { correct: string, distractors: string[] } | null;
 
     @IsArray()
-    @IsString({each: true})
+    @IsString({ each: true })
     conceptTags: string[]
+
+    @IsUUID()
+    resourceId: string;
 
 }

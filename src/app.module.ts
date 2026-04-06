@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { Throttle, ThrottlerModule } from '@nestjs/throttler';
 import { StudiesModule } from './studies/studies.module';
 import { ResourcesModule } from './resources/resources.module';
+import { FlashcardModule } from './flashcard/flashcard.module';
 
 @Module({
   imports: [AuthModule,
@@ -49,7 +50,9 @@ import { ResourcesModule } from './resources/resources.module';
 
     StudiesModule,
 
-    ResourcesModule
+    ResourcesModule,
+
+    FlashcardModule
 
   ],
   controllers: [AppController],

@@ -13,6 +13,7 @@ import { StudiesModule } from 'src/studies/studies.module';
     TypeOrmModule.forFeature([Resource]),
     StudiesModule
 
-  ]
+  ],
+  exports: [ResourcesService]
 })
 export class ResourcesModule {}

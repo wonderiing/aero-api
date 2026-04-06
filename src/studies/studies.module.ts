@@ -11,6 +11,7 @@ import { Study } from './entities/study.entity';
 
     TypeOrmModule.forFeature([Study])
 
-  ]
+  ],
+  exports: [StudiesService]
 })
 export class StudiesModule {}

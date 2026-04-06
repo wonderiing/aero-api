@@ -1,6 +1,7 @@
 import { Exclude, Expose } from "class-transformer";
 import { User } from "src/auth/entities/user.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Resource } from "src/resources/entities/resource.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'studies' })
 export class Study {
@@ -20,4 +21,6 @@ export class Study {
     @ManyToOne( () => User, (user) => user.studies,{ onDelete: 'CASCADE'})
     user: User;
 
+    @OneToMany(() => Resource, (resource) => resource.study)
+    resources: Resource[];
 }

@@ -44,18 +44,10 @@ export class ResourcesService {
   }
 
   async update(id: string, updateResourceDto: UpdateResourceDto, userId: string): Promise<Resource> {
-    const resource = await this.resourceRepo.preload({
-      id,
-      ...updateResourceDto,
-    });
-
-    if (!resource) throw new BadRequestException(`Resource with id ${id} not found`);
-
-    if (resource.study.user.id !== userId) throw new BadRequestException(`You don't have permission to update this record`)
-  
+    const resource = await this.findOne(id, userId);
+    Object.assign(resource, updateResourceDto);
     return this.resourceRepo.save(resource);
   }
-
   remove(id: string) {
     return `This action removes a #${id} resource`;
   }

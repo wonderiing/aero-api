@@ -1,4 +1,5 @@
 import { Exclude, Expose } from "class-transformer";
+import { Attempt } from "src/attempts/entities/attempt.entity";
 import { User } from "src/auth/entities/user.entity";
 import { Flashcard } from "src/flashcard/entities/flashcard.entity";
 import { Resource } from "src/resources/entities/resource.entity";
@@ -27,4 +28,7 @@ export class Study {
 
     @OneToMany(() => Flashcard, (flashcard) => flashcard.study)
     flashcards: Flashcard[];
+
+    @OneToMany(() => Attempt, (attempt) => attempt.study)
+    attempts: Attempt[];
 }

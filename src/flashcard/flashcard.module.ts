@@ -16,6 +16,7 @@ import { ResourcesModule } from 'src/resources/resources.module';
     StudiesModule,
     ResourcesModule
 
-  ]
+  ],
+  exports: [FlashcardService],
 })
 export class FlashcardModule {}

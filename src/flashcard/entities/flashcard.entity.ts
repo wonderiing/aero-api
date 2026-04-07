@@ -1,6 +1,7 @@
+import { Attempt } from "src/attempts/entities/attempt.entity";
 import { Resource } from "src/resources/entities/resource.entity";
 import { Study } from "src/studies/entities/study.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'flashcards'})
 export class Flashcard {
@@ -33,4 +34,6 @@ export class Flashcard {
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', name: 'created_at' })
     createdAt: Date;
 
+    @OneToMany(() => Attempt, (attempt) => attempt.flashcard)
+    attempts: Attempt[];
 }

@@ -8,6 +8,8 @@ import { Throttle, ThrottlerModule } from '@nestjs/throttler';
 import { StudiesModule } from './studies/studies.module';
 import { ResourcesModule } from './resources/resources.module';
 import { FlashcardModule } from './flashcard/flashcard.module';
+import { AttemptsModule } from './attempts/attempts.module';
+import { GapsModule } from './gaps/gaps.module';
 
 @Module({
   imports: [AuthModule,
@@ -52,7 +54,11 @@ import { FlashcardModule } from './flashcard/flashcard.module';
 
     ResourcesModule,
 
-    FlashcardModule
+    FlashcardModule,
+
+    AttemptsModule,
+
+    GapsModule,
 
   ],
   controllers: [AppController],

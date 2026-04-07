@@ -3,7 +3,7 @@ import { CreateFlashcardDto } from './dto/create-flashcard.dto';
 import { UpdateFlashcardDto } from './dto/update-flashcard.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Flashcard } from './entities/flashcard.entity';
-import { Repository } from 'typeorm';
+import { IsNull, LessThanOrEqual, Repository } from 'typeorm';
 import { StudiesService } from 'src/studies/studies.service';
 import { ResourcesService } from 'src/resources/resources.service';
 
@@ -91,5 +91,25 @@ export class FlashcardService {
     return await this.flashcardRepo.save(flashcards);
   }
 
+  async getReviewQueue(studyId: string, userId: string): Promise<Flashcard[]> {
+
+    const now = new Date();
+
+    const flashcards = await this.flashcardRepo.find({
+      where: [
+        {
+          study: { id: studyId, user: { id: userId } },
+          nextReviewAt: LessThanOrEqual(now),
+        },
+        {
+          study: { id: studyId, user: { id: userId } },
+          nextReviewAt: IsNull(),
+        },
+      ],
+      order: { nextReviewAt: { direction: 'ASC', nulls: 'FIRST' } },
+    });
+
+    return flashcards;
+  }
 
 }

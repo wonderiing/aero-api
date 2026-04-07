@@ -1,3 +1,4 @@
+import { Attempt } from "src/attempts/entities/attempt.entity";
 import { Study } from "src/studies/entities/study.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -38,4 +39,7 @@ export class User {
 
     @OneToMany(() => Study, (study) => study.user)
     studies: Study[];
+
+    @OneToMany(() => Attempt, (attempt) => attempt.user)
+    attempts: Attempt[];
 }

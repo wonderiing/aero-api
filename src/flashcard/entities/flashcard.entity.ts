@@ -34,6 +34,15 @@ export class Flashcard {
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', name: 'created_at' })
     createdAt: Date;
 
+    @Column({ type: 'timestamp', nullable: true, name: 'next_review_at' })
+    nextReviewAt: Date | null;
+
+    @Column({ type: 'float', default: 2.5, name: 'ease_factor' })
+    easeFactor: number;
+
+    @Column({ type: 'int', default: 0, name: 'interval_days' })
+    intervalDays: number;
+
     @OneToMany(() => Attempt, (attempt) => attempt.flashcard)
     attempts: Attempt[];
 }

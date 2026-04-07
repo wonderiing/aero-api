@@ -15,6 +15,12 @@ export class FlashcardController {
     return this.flashcardService.findAllFlashcardByStudy(studyId, userId, resourceId);
   }
 
+  @Get('studies/:studyId/flashcards/review-queue')
+  @UseGuards(JwtAuthGuard)
+  async getReviewQueue(@Param('studyId', ParseUUIDPipe) studyId: string, @GetUser('id') userId: string) {
+    return this.flashcardService.getReviewQueue(studyId, userId);
+  }
+
   @Post('studies/:studyId/flashcards')
   @UseGuards(JwtAuthGuard)
   async create(@Param('studyId', ParseUUIDPipe) studyId: string, @GetUser('id') userId: string, @Body() createFlashCardDto: CreateFlashcardDto) {

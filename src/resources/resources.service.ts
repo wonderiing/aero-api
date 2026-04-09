@@ -48,7 +48,12 @@ export class ResourcesService {
     Object.assign(resource, updateResourceDto);
     return this.resourceRepo.save(resource);
   }
-  remove(id: string) {
-    return `This action removes a #${id} resource`;
+
+  async remove(id: string, userId: string) {
+
+    const resource = await this.findOne(id, userId)
+
+    await this.resourceRepo.remove(resource)
+    
   }
 }

@@ -33,5 +33,11 @@ export class ResourcesController {
     return this.resourcesService.findOne(id, userId);
   }
 
+  @Delete('resources/:id')
+  @UseGuards(JwtAuthGuard)
+  delete(@Param('id', ParseUUIDPipe) id: string, @GetUser('id') userId: string) {
+    return this.resourcesService.remove(id, userId)
+   }
+
 
 }

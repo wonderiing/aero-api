@@ -1,4 +1,4 @@
-import { ConflictException, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -90,6 +90,20 @@ export class AuthService {
   private async saveRefreshToken(userId: string, token: string) {
     const hashedToken = await bcrypt.hash(token, 10);
     await this.userRepo.update(userId, { hashedRefreshToken: hashedToken });
+  }
+
+
+
+  async remove(userId: string) {
+
+    const user = await this.userRepo.findOne({
+      where: {id: userId}
+    })
+
+
+    if (!user) throw new BadRequestException('Not found user')
+
+    return await this.userRepo.remove(user)
   }
 
 }

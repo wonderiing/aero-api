@@ -36,5 +36,11 @@ export class AuthController {
     return this.authService.logout(userId);
   }
 
+  @Delete('/delete')
+  @UseGuards(JwtAuthGuard)
+  remove(@GetUser('id') userId: string) {
+    return this.authService.remove(userId)
+  }
+
 
 }
